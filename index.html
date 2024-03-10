@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="rtl">
+
+<head>
+    <title>رمضان مبارك</title>
+    <link rel="icon" href="hhrlogo.png" type="image/png" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta property="og:title" content="صمم بطاقة معايدة بإسمك" />
+    <meta property="og:type" content="website" />
+    <meta property=”og:image” content=”OG.jpg” />
+    <meta property="og:description" content="كل عام وانتم بخير" />
+    <meta property=”og:url” content=”https://ikatheri.xyz/eid/” />
+    <script src="assets/js/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Amiri' rel='stylesheet'>
+
+    <script src="https://github.com/niklasvh/html2canvas/releases/download/0.4.1/html2canvas.js"></script>
+
+    <style>
+        button {
+            font-family: 'Cairo', sans-serif;
+            border-radius: 7px;
+            color: black;
+        }
+
+        input {
+            font-family: 'Cairo', sans-serif;
+            font-size: 10px;
+            text-align: right;
+        }
+
+        body {
+            background-image: url('BG.jpg');
+            background-color: #ffffff;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            font-family: 'Cairo', sans-serif;
+            color: white;
+        }
+
+        h3 {
+            display: block;
+           text-align: justify;
+           direction: rtl;
+            font-family: 'Cairo';
+            font-size: 30px;
+            color: #FFFFFF;
+            position: absolute;
+            /*bottom: 70%;
+            left: 50%;*/
+            
+            transform: translate(-50%, -50%);
+        }
+
+        .MyImg {
+            width: auto;
+            display: block;
+        }
+
+        #html-content-holder {
+            position: relative;
+            display: inline-block;
+        }
+
+        .temp {
+            color: #e9c771;
+        }
+
+        p{
+          color: #123e53;
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>عيد أضحى مبارك</title>
+
+</head>
+
+<body>
+    <form>
+        <div class="imgcontainer">
+            <p style="text-align:center;">
+                <img src="hhrlogo.png" alt="Avatar" class="avatar" width="374" height="276" class="responsive">
+            </p>
+            <p style="text-align:center;">
+                <b style=font-size:200%;>بطاقة معايدة</b>
+            </p>
+            <p style="text-align:center;"><small style=font-size:120%>مبارك عليكم حلول شهر رمضان المبارك, أعاده الله
+                    علينا وعليكم بالخير والبركات</small></p>
+            <p style="text-align:center;"><small style=font-size:100%>يمكنكم الحصول على كرت تهنئة رمضان بأسمكم من
+                    هنا</small></p>
+        </div>
+
+        <div class="container">
+            <p style="text-align:center;">
+                <input id="input" type="text" placeholder="اسمك هنا" name="uname" required>
+                <label for="uname"><b style=font-size:100%>ادخل اسمك</b></label>
+            </p>
+        </div>
+    </form>
+    <p style="text-align:center;">
+        <button onclick="getCard()">عرض التهنئة</button>
+    </p>
+
+    <p style="text-align:center;"></p>
+
+    <script>
+        function getCard() {
+            name = document.getElementById("input").value;
+
+            if (name == "" || name == " ") {
+                alert("يجب عليك ادخال اسمك في مربع النص")
+            } else {
+                var image_htmlString = '<div><img class="MyImg" src="./ramadan2024.png">' +
+                    '<h3 style="left:540px;top:700px" id=\'name\'>' + name + '</h3></div>';
+                var tempDiv = document.createElement('div');
+                tempDiv.setAttribute("id", "html-content-holder")
+                document.body.appendChild(tempDiv);
+                setTimeout(function () {
+                    tempDiv.innerHTML = image_htmlString;
+                    html2canvas(tempDiv, {
+                        onrendered: function (canvas) {
+                            getCanvas = canvas;
+                            canvas.setAttribute('direction', 'rtl');
+                            canvas.textAlign = 'right';
+                            //$('#imageCol').html(getCanvas);
+                            var imageData = getCanvas.toDataURL("image/png");
+                            var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                            var tmp = document.createElement('a');
+                            tmp.setAttribute('href', newData);
+                            tmp.setAttribute('download', "eid_" + name + ".png");
+                            tmp.style.display = 'none';
+                            document.body.appendChild(tmp);
+                            tmp.click();
+                            document.body.removeChild(tmp);
+                            document.body.removeChild(tempDiv);
+                        }
+                    });
+                }, 10);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
